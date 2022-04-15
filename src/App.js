@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { CategoryScale } from "chart.js";
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 import { InView } from "react-intersection-observer";
 
 Chart.register(CategoryScale);
+Chart.register(ChartDataLabels);
 
 function App() {
   const [dataIndex, setDataIndex] = useState(0);
@@ -29,19 +31,26 @@ function App() {
   ]);
 
   const options = {
-    legend: {
-      display: true, //Is the legend shown?
-      position: "top", //Position of the legend.
-    },
     elements: {
       point: {
-        radius: 0,
+        radius: 1,
       },
     },
     scales: {
       y: {
         max: 3500,
         min: 0,
+      },
+    },
+    plugins: {
+      // Change options for ALL labels of THIS CHART
+      datalabels: {
+        color: "#8e9490",
+        anchor: "end",
+        align: "end",
+        display: function (context) {
+          return context.dataIndex === dataIndex;
+        },
       },
     },
   };
