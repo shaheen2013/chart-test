@@ -199,7 +199,7 @@ function App() {
             return (
               <InView
                 as="div"
-                threshold={0.5}
+                threshold={0.3}
                 className={label}
                 key={key}
                 onChange={(inView, entry) => {
